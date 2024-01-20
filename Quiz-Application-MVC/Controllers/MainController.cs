@@ -10,12 +10,12 @@ namespace Quiz_Application_MVC.Controllers
     public class MainController : Controller
     {
         private readonly ILogger<MainController> _logger;
-        private readonly IRepository<Test> _repository;
+        private readonly IRepository<Answer> _repository;
 
         public MainController(ILogger<MainController> logger, RepositoryFactory factory)
         {
             _logger = logger;
-            _repository = factory.GetRepository<Test>();
+            _repository = factory.GetRepository<Answer>();
         }
 
         public async Task<IActionResult> Index()

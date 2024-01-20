@@ -1,4 +1,4 @@
-﻿@model ICollection<Test>
+﻿@model ICollection<Answer>
 
 @{
     ViewData["Title"] = "Main Page";
@@ -6,21 +6,23 @@
 }
 
 <div class="container">
-    <div class="card-deck mb-3 text-center">
-        @foreach (var test in Model)
+    <div class="row">
+        @foreach (var item in Model)
         {
-            <div class="card mb-4 box-shadow">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">@test.name</h4>
-                </div>
-                <div class="card-body">
-                    <p>
-                        <b>@test.creationDate</b>
-                    </p>
-                    <p>
-                        <b>@test.questions?.Count</b>
-                    </p>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Start</button>
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">@item.id</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <b>@item.value</b>
+                        </p>
+                        <p>
+                            <b>@item.questionId</b>
+                        </p>
+                        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Start</button>
+                    </div>
                 </div>
             </div>
         }
