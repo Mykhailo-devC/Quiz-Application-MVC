@@ -1,11 +1,6 @@
 ﻿using Quiz.DB;
 using Quiz.Logic.DataRepositories;
 using Quiz.Models.DataModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quiz.Logic
 {

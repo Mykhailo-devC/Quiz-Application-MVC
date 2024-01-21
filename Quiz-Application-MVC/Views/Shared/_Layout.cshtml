@@ -4,18 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/mainPage.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Quiz_Application_MVC.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-            <div class="container">
-                <a class="navbar-brand" style="font-weight:bold;" asp-area="" asp-controller="Main" asp-action="Index">Quiz App</a>
 
-                <ul class="navbar-nav me-auto">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-utilities.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+    <header class="">
+        <nav class="navbar navbar-expand-lg bg-primary border-bottom rounded-bottom border-primary" data-bs-theme="dark">
+            <div class="container d-flex justify-content-start">
+                <a class="navbar-brand" style="font-weight:bold;" asp-area="" asp-controller="Main" asp-action="Index">Quiz App</a>
+                <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link active" asp-controller="Main" asp-action="Index">
                             Quizes
@@ -27,22 +28,31 @@
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main" class="pt-4">
+    <div class="container bg-light-subtle border border-primary rounded my-3 flex-grow-1">
+        <main role="main" class="pt-2">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer fixed-bottom bg-primary text-bg-primary d-flex align-items-center" data-bs-theme="dark">
+    <footer class="border-top footer fixed-bottom bg-primary text-bg-primary d-flex align-items-center flex-grow-0" data-bs-theme="dark">
         <div class="container ">
             <div class="row-cols-auto">
-                &copy; 2024 - Quiz App - <a asp-area="" asp-controller="Main" asp-action="Privacy">Privacy</a>
+                &copy; 2024 - Quiz App
             </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.esm.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.esm.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

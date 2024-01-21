@@ -5,9 +5,9 @@ namespace Quiz.Logic
 {
     public interface IRepository<T> where T : class, IDataModel
     { 
-        public Task<ReposiotryResponse<T>> GetAll();
-        public Task<ReposiotryResponse<T>> Add(T data);
-        public Task<ReposiotryResponse<T>> Update(T data);
-        public Task<ReposiotryResponse<T>> Delete(int id);
+        public Task<Response<T>> GetAll();
+        public Task<Response<T>> Add(T data);
+        public Task<Response<T>> Update(T data);
+        public Task<Response<T>> Delete(int id);
     }
 }

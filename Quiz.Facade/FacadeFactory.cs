@@ -13,21 +13,21 @@ namespace Quiz.Facade
             _factory = factory;
         }
 
-        public IRepositoryFacade<T> GetFacade<T>() where T : class, IDataModel
+        public IRepositoryFacade<T, K> GetFacade<T, K>()
         {
-            var repositoryType = typeof(T);
+            var repositoryType = typeof(K);
 
-            if (repositoryType == typeof(Answer))
+/*            if (repositoryType == typeof(Answer))
             {
-                return (IRepositoryFacade<T>)new AnswerRepositoryFacade(_factory);
+                return (IRepositoryFacade<T,K>)new AnswerRepositoryFacade(_factory);
             }
-            else if (repositoryType == typeof(Question))
+            if (repositoryType == typeof(Question))
             {
-                return (IRepositoryFacade<T>)new QuestionRepositoryFacade(_factory);
-            }
-            else if (repositoryType == typeof(Test))
+                return (IRepositoryFacade<T,K>)new QuestionRepositoryFacade(_factory);
+            }*/
+            if (repositoryType == typeof(Test))
             {
-                return (IRepositoryFacade<T>)new TestRepositoryFacade(_factory);
+                return (IRepositoryFacade<T,K>)new TestRepositoryFacade(_factory);
             }
             else
             {

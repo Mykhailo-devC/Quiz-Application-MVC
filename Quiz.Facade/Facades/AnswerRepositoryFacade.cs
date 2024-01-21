@@ -4,7 +4,7 @@ using Quiz.Models.ResponseModels;
 
 namespace Quiz.Facade.Facades
 {
-    public class AnswerRepositoryFacade : RepositoryFacade<Answer>
+    /*public class AnswerRepositoryFacade : RepositoryFacade<Answer>
     {
         public AnswerRepositoryFacade(RepositoryFactory factory) : base(factory)
         {
@@ -29,6 +29,6 @@ namespace Quiz.Facade.Facades
         {
             throw new NotImplementedException();
         }
-    }
+    }*/
 
 }

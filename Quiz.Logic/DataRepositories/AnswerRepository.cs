@@ -11,9 +11,9 @@ namespace Quiz.Logic.DataRepositories
         {
         }
 
-        public override async Task<ReposiotryResponse<Answer>> Add(Answer data)
+        public override async Task<Response<Answer>> Add(Answer data)
         {
-            var result = new ReposiotryResponse<Answer>();
+            var result = new Response<Answer>();
             try
             {
                 await _context.Database.BeginTransactionAsync();
@@ -51,9 +51,9 @@ namespace Quiz.Logic.DataRepositories
             return result;
         }
 
-        public override async Task<ReposiotryResponse<Answer>> Delete(int id)
+        public override async Task<Response<Answer>> Delete(int id)
         {
-            var result = new ReposiotryResponse<Answer>();
+            var result = new Response<Answer>();
             try
             {
                 await _context.Database.BeginTransactionAsync();
@@ -93,9 +93,9 @@ namespace Quiz.Logic.DataRepositories
             return result;
         }
 
-        public override async Task<ReposiotryResponse<Answer>> GetAll()
+        public override async Task<Response<Answer>> GetAll()
         {
-            var result = new ReposiotryResponse<Answer>();
+            var result = new Response<Answer>();
             try
             {
                 var answers = await _context.Answers.ToListAsync();
@@ -114,9 +114,9 @@ namespace Quiz.Logic.DataRepositories
             return result;
         }
 
-        public override async Task<ReposiotryResponse<Answer>> Update(Answer data)
+        public override async Task<Response<Answer>> Update(Answer data)
         {
-            var result = new ReposiotryResponse<Answer>();
+            var result = new Response<Answer>();
             try
             {
                 await _context.Database.BeginTransactionAsync();

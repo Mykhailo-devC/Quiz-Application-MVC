@@ -1,18 +1,14 @@
 ﻿using Quiz.Models.DataModels;
 using Quiz.Models.ResponseModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Quiz.Facade
 {
-    public interface IRepositoryFacade<T>
+    public interface IRepositoryFacade<T, K>
     {
         public Task<Response<T>> GetAll();
-        public Task<Response<T>> Add(T data);
-        public Task<Response<T>> Update(T data);
+        public Task<Response<T>> Add(K data);
+        public Task<Response<T>> Update(K data);
         public Task<Response<T>> Delete(int id);
     }
 }

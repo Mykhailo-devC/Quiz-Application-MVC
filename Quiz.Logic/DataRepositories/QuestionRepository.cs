@@ -2,11 +2,6 @@
 using Quiz.DB;
 using Quiz.Models.DataModels;
 using Quiz.Models.ResponseModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quiz.Logic.DataRepositories
 {
@@ -16,9 +11,9 @@ namespace Quiz.Logic.DataRepositories
         {
         }
 
-        public override async Task<ReposiotryResponse<Question>> Add(Question data)
+        public override async Task<Response<Question>> Add(Question data)
         {
-            var result = new ReposiotryResponse<Question>();
+            var result = new Response<Question>();
             try
             {
                 await _context.Database.BeginTransactionAsync();
@@ -56,9 +51,9 @@ namespace Quiz.Logic.DataRepositories
             return result;
         }
 
-        public override async Task<ReposiotryResponse<Question>> Delete(int id)
+        public override async Task<Response<Question>> Delete(int id)
         {
-            var result = new ReposiotryResponse<Question>();
+            var result = new Response<Question>();
             try
             {
                 await _context.Database.BeginTransactionAsync();
@@ -98,9 +93,9 @@ namespace Quiz.Logic.DataRepositories
             return result;
         }
 
-        public override async Task<ReposiotryResponse<Question>> GetAll()
+        public override async Task<Response<Question>> GetAll()
         {
-            var result = new ReposiotryResponse<Question>();
+            var result = new Response<Question>();
             try
             {
                 var questions = await _context.Questions.ToListAsync();
@@ -119,9 +114,9 @@ namespace Quiz.Logic.DataRepositories
             return result;
         }
 
-        public override async Task<ReposiotryResponse<Question>> Update(Question data)
+        public override async Task<Response<Question>> Update(Question data)
         {
-            var result = new ReposiotryResponse<Question>();
+            var result = new Response<Question>();
             try
             {
                 await _context.Database.BeginTransactionAsync();

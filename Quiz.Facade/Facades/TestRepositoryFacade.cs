@@ -5,17 +5,19 @@ using Quiz.Models.ResponseModels;
 
 namespace Quiz.Facade.Facades
 {
-    public class TestRepositoryFacade : RepositoryFacade<Test, TestFormattedData>
+    public class TestRepositoryFacade : RepositoryFacade<TestFormattedData, Test>
     {
         private IRepository<Question> _questionRepository;
         private IRepository<Answer> _answerRepository;
+        private IRepository<Test> _testRepository;
         public TestRepositoryFacade(RepositoryFactory factory) : base(factory)
         {
             _questionRepository = factory.GetRepository<Question>();
             _answerRepository = factory.GetRepository<Answer>();
+            _testRepository = factory.GetRepository<Test>();
         }
 
-        public override Task<Response<TestFormattedData>> Add(TestFormattedData data)
+        public override Task<Response<TestFormattedData>> Add(Test data)
         {
             throw new NotImplementedException();
         }
@@ -30,27 +32,24 @@ namespace Quiz.Facade.Facades
             var result = new Response<TestFormattedData>();
             try
             {
-                var tests = await _mainRepository.GetAll();
+                var tests = await _testRepository.GetAll();
                 if(tests != null)
                 {
                     var questions = await _questionRepository.GetAll();
                     foreach(var test in tests.Data)
                     {
                         test.questions = questions.Data.Where(x => x.testId == test.id).ToList();
-                        test.creationDate = test.creationDate;
                     }
 
-                    var convertedData = tests.Data as ICollection<TestDTO>;
+                    result.Data = tests.Data.Select(x => new TestFormattedData
+                    {
+                        Id = x.id,
+                        Name = x.name,
+                        CreationDate = x.creationDate.ToShortDateString(),
+                        QuestionsCount = x.questions.Count
+                    }).ToList();
 
-                    if (convertedData != null)
-                    {
-                        result.Data = convertedData;
-                        result.Success = true;
-                    }
-                    else
-                    {
-                        result.ErrorMessage = "Can't convert test data to DTO object";
-                    }
+                    result.Success = true;
                 }
                 else
                 {
@@ -62,7 +61,7 @@ namespace Quiz.Facade.Facades
             {
                 result.ErrorMessage = ex.Message;
             }
-            return (Response<Test>)result;
+            return result;
         }
 
         public override Task<Response<TestFormattedData>> Update(Test data)

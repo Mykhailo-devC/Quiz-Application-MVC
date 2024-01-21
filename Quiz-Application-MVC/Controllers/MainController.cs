@@ -3,6 +3,7 @@ using Quiz.DB;
 using Quiz.Facade;
 using Quiz.Logic;
 using Quiz.Models.DataModels;
+using Quiz.Models.FormattedData;
 using Quiz_Application_MVC.Models;
 using System.Diagnostics;
 
@@ -11,12 +12,12 @@ namespace Quiz_Application_MVC.Controllers
     public class MainController : Controller
     {
         private readonly ILogger<MainController> _logger;
-        private readonly IRepositoryFacade<Test> _facade;
+        private readonly IRepositoryFacade<TestFormattedData, Test> _facade;
 
         public MainController(ILogger<MainController> logger, FacadeFactory factory)
         {
             _logger = logger;
-            _facade = factory.GetFacade<Test>();
+            _facade = factory.GetFacade<TestFormattedData, Test>();
         }
 
         public async Task<IActionResult> Index()
@@ -30,6 +31,11 @@ namespace Quiz_Application_MVC.Controllers
 
             return View(result.Data);
 
+        }
+
+        public async Task<IActionResult> AddQuiz(Test test)
+        {
+            return View();
         }
 
         public IActionResult Privacy()
