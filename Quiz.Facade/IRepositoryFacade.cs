@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Quiz.Facade
 {
-    public interface IRepositoryFacade<T> where T : class, IDataModel
+    public interface IRepositoryFacade<T>
     {
         public Task<Response<T>> GetAll();
         public Task<Response<T>> Add(T data);

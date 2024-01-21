@@ -1,4 +1,4 @@
-﻿@model ICollection<Answer>
+﻿@model ICollection<Test>
 
 @{
     ViewData["Title"] = "Main Page";
@@ -12,16 +12,22 @@
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
                     <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">@item.id</h4>
+                        <h4 class="my-0 font-weight-normal">@item.name</h4>
                     </div>
                     <div class="card-body">
-                        <p>
-                            <b>@item.value</b>
-                        </p>
-                        <p>
-                            <b>@item.questionId</b>
-                        </p>
-                        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Start</button>
+                        <div class="row">
+                            <p class="font-monospace">
+                                Number of questions: @item.questions.Count
+                            </p>
+                        </div>
+                        <div class="d-flex flex-fill">
+                            <div class="p-2 w-50" style="font-weight:bold;">
+                                @item.creationDate
+                            </div>
+                            <div class="p-2 w-50 d-flex justify-content-center">
+                                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Start</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

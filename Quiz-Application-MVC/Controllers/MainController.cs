@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Quiz.DB;
+using Quiz.Facade;
 using Quiz.Logic;
 using Quiz.Models.DataModels;
 using Quiz_Application_MVC.Models;
@@ -10,17 +11,17 @@ namespace Quiz_Application_MVC.Controllers
     public class MainController : Controller
     {
         private readonly ILogger<MainController> _logger;
-        private readonly IRepository<Answer> _repository;
+        private readonly IRepositoryFacade<Test> _facade;
 
-        public MainController(ILogger<MainController> logger, RepositoryFactory factory)
+        public MainController(ILogger<MainController> logger, FacadeFactory factory)
         {
             _logger = logger;
-            _repository = factory.GetRepository<Answer>();
+            _facade = factory.GetFacade<Test>();
         }
 
         public async Task<IActionResult> Index()
         {
-            var result = await _repository.GetAll();
+            var result = await _facade.GetAll();
 
             if (!result.Success)
             {

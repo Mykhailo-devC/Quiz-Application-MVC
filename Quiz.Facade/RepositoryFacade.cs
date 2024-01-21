@@ -6,20 +6,20 @@ using Quiz.Models.ResponseModels;
 
 namespace Quiz.Facade
 {
-    public abstract class RepositoryFacade<T> : IRepositoryFacade<T> where T : class, IDataModel
+    public abstract class RepositoryFacade<RepositoryT, DataT> : IRepositoryFacade<DataT> where RepositoryT : class, IDataModel
     {
-        protected IRepository<T> _repository;
+        protected IRepository<RepositoryT> _mainRepository;
         public RepositoryFacade(RepositoryFactory factory)
         {
-            _repository = factory.GetRepository<T>();
+            _mainRepository = factory.GetRepository<RepositoryT>();
         }
-        public abstract Task<Response<T>> GetAll();
+        public abstract Task<Response<DataT>> GetAll();
 
-        public abstract Task<Response<T>> Add(T data);
+        public abstract Task<Response<DataT>> Add(DataT data);
 
-        public abstract Task<Response<T>> Update(T data);
+        public abstract Task<Response<DataT>> Update(DataT data);
 
-        public abstract Task<Response<T>> Delete(int id);
+        public abstract Task<Response<DataT>> Delete(int id);
     }
 
 }

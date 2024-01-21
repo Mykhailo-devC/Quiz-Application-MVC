@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Quiz.DB\Quiz.DB.csproj" />
-    <ProjectReference Include="..\Quiz.Logic\Quiz.Logic.csproj" />
+    <ProjectReference Include="..\Quiz.Facade\Quiz.Facade.csproj" />
   </ItemGroup>
 
 </Project>
