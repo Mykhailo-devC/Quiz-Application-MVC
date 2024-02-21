@@ -1,0 +1,26 @@
+﻿@model QuizResultData
+@{
+
+
+}
+
+<div class="">
+    <div class="" style="min-height:180px;">
+    </div>
+    <div class="row h1 text-center">
+        <p>Quiz Result </p>
+    </div>
+    <div class="row">
+        <div class="h3">Quiz name : @Model.Name</div>
+        <div class="h3 mt-2">Progress:</div>
+        <div class="progress my-2" style="height:25px;">
+            <div class="progress-bar fw-bold text-dark @Model.progressColor" style="width:@(Model.progressValue == 0 ? 100 : Model.progressValue)%;" role="progressbar" aria-valuenow="@Model.TotalNumberOfCorrectAnswers" aria-valuemin="0" aria-valuemax="@Model.TotalNumberOfQuestions">@(Model.progressValue)%</div>
+        </div>
+    </div>
+    <div>
+        <div class="h3 mt-2">Finished at : @Model.FinishedAtTime</div>
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+        <a asp-action="Index" asp-controller="Main" class="btn btn-primary w-50" type="button">Done</a>
+    </div>
+</div>

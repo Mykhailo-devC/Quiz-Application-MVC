@@ -1,0 +1,33 @@
+﻿@model QuizViewModel
+@{
+
+}
+<form class="form" method="post" action="FinishQuiz">
+    <div class="row mb-3">
+        <h1>
+            @Model.Quiz.name
+        </h1>
+    </div>
+    <div class="row mx-4">
+        <ol class="col">
+            @foreach (var question in Model.QuestionPool)
+            {
+                <li class="h2">@Model.Quiz.questions.First(x => x.id == question.Key).value</li>
+
+                <div class="list-group row">
+                    @foreach (var answer in question.Value)
+                    {
+                        <input asp-for="@Model.QuestionPool[question.Key][answer.Key]" type="checkbox" class="btn-check" id="@(answer.Key)" autocomplete="off"/>
+                        <label asp-for="@Model.QuestionPool[question.Key][answer.Key]" class="btn btn-outline-dark fw-bold list-group-item list-group-item-action" for="@(answer.Key)">@Model.Quiz.questions.First(x => x.id == question.Key).answers.First(x => x.id == answer.Key).value</label>
+
+                        <br>
+                    }
+                </div>
+            }
+        </ol>
+    </div>
+    <div class="row">
+        <button asp-route-id="@Model.Quiz.id" asp-action="FinishQuiz" asp-controller="Quiz" class="btn btn-primary w-50" type="submit">Finish</button>
+        <a asp-action="Index" asp-controller="Main" class="btn btn-outline-dark w-50" type="button">Exit</a>
+    </div>
+</form>

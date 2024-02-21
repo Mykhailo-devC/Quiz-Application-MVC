@@ -1,5 +1,6 @@
 ﻿using Quiz.DB;
 using Quiz.Logic.DataRepositories;
+using Quiz.Logic.Interfaces;
 using Quiz.Models.DataModels;
 
 namespace Quiz.Logic
@@ -13,26 +14,25 @@ namespace Quiz.Logic
             _context = context;
         }
 
-        public IRepository<T> GetRepository<T>() where T : class, IDataModel
+        public IRepository<T> GetRepository<T>() where T : BaseDataModel
         {
-            var repositoryType = typeof(T);
+            if(Enum.TryParse(typeof(T).Name, out RepositoryType repositoryType))
+            {
+                if (repositoryType == RepositoryType.Answer)
+                {
+                    return (IRepository<T>)new AnswerRepository(_context);
+                }
+                if (repositoryType == RepositoryType.Question)
+                {
+                    return (IRepository<T>)new QuestionRepository(_context);
+                }
+                if (repositoryType == RepositoryType.Quiz)
+                {
+                    return (IRepository<T>)new QuizRepository(_context);
+                }
+            }
 
-            if(repositoryType == typeof(Answer))
-            {
-                return (IRepository<T>)new AnswerRepository(_context);
-            }
-            else if(repositoryType == typeof(Question))
-            {
-                return (IRepository<T>)new QuestionRepository(_context);
-            }
-            else if(repositoryType == typeof(Test))
-            {
-                return (IRepository<T>)new TestRepository(_context);
-            }
-            else
-            {
-                return null;
-            }
+            return null;
         }
     }
 }

@@ -1,14 +1,14 @@
-﻿using Quiz.Models.DataModels;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Quiz.Models.DataModels
 {
-    public class Test : IDataModel
+    public class Quiz : BaseDataModel
     {
-        public int id { get; set; }
         [Required]
+        [DisplayName("Quiz name")]
         public string name { get; set; }
         public DateTime creationDate { get; set; }
-        public virtual List<Question> questions { get; set; }
+        public virtual List<Question> questions { get; set; } = new();
     }
 }

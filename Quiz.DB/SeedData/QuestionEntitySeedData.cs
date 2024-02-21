@@ -14,21 +14,21 @@ namespace Quiz.DB.SeedData
                         id = 1,
                         value = "What access modifier make component available only within it's class of struct?",
                         correctAnswer = "Private",
-                        testId = 1,
+                        quizId = 1,
                     },
                     new Question
                     {
                         id = 2,
                         value = "What of these types is Referense type?",
                         correctAnswer = "Class",
-                        testId = 1,
+                        quizId = 1,
                     },
                     new Question
                     {
                         id = 3,
                         value = "What modifier can pass parameters by reference?",
                         correctAnswer = "ref",
-                        testId = 1,
+                        quizId = 1,
                     }
                 );
         }

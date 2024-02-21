@@ -1,6 +1,6 @@
 ﻿namespace Quiz.Models.FormattedData
 {
-    public class TestFormattedData
+    public class QuizFormattedData
     {
         public int Id { get; set; }
         public string Name {  get; set; }

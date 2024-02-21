@@ -1,0 +1,115 @@
+﻿@model ManageQuizViewModel
+
+@{
+    string text = TempData["ErrorMessage"] as string ?? "";
+}
+
+<form class="form" method="post" action="AddQuizModal">
+    <div class="d-none">
+        <label asp-for="@Model.Quiz.id" class="col-form-label"></label>
+        <input asp-for="@Model.Quiz.id" type="text" class="form-control bg-body-secondary" />
+    </div>
+    <div class="d-none">
+        <label asp-for="@Model.Quiz.creationDate" class="col-form-label"></label>
+        <input asp-for="@Model.Quiz.creationDate" type="text" class="form-control bg-body-secondary" />
+    </div>
+    <div class="form-group mb-3 w-50">
+        <label asp-for="@Model.Quiz.name" class="col-form-label"></label>
+        <input asp-for="@Model.Quiz.name" id="name" type="text" class="form-control bg-body-secondary" />
+        <span asp-validation-for="@Model.Quiz.name" class="text-danger"></span>
+    </div>
+    <div class="questions mb-3">
+        @for (int i = 0; i < Model.Quiz.questions?.Count; i++)
+        {
+            <div class="row">
+                <div class="col" style="padding-right:0px;">
+                    <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#question@(i)">@("Question " + (i + 1))</button>
+                </div>
+                <div class="col-auto">
+                    <button asp-route-id="@(i)" asp-action="DeleteQuestion" asp-controller="ManageQuiz" class="btn btn-danger w-100" type="submit"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="collapse show" id="question@(i)">
+                    <div class="form-group d-flex ">
+
+                        <div class="d-none">
+                            <label asp-for="@Model.Quiz.questions[i].id" class="col-form-label"></label>
+                            <input asp-for="@Model.Quiz.questions[i].id" type="text" class="form-control bg-body-secondary" />
+                        </div>
+                        <div class="d-none">
+                            <label asp-for="@Model.Quiz.questions[i].quizId" class="col-form-label"></label>
+                            <input asp-for="@Model.Quiz.questions[i].quizId" type="text" class="form-control bg-body-secondary" />
+                        </div>
+
+                        <div class="w-50 m-1">
+                            <label asp-for="@Model.Quiz.questions[i].value" class="col-form-label"></label>
+                            <input asp-for="@Model.Quiz.questions[i].value" type="text" class="form-control bg-body-secondary" />
+                            <span asp-validation-for="@Model.Quiz.questions[i].value" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="w-50 m-1">
+                            <label asp-for="@Model.Quiz.questions[i].correctAnswer" class="col-form-label"></label>
+                            <input asp-for="@Model.Quiz.questions[i].correctAnswer" type="text" class="form-control bg-body-secondary" />
+                            <span asp-validation-for="@Model.Quiz.questions[i].correctAnswer" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mt-2 border border-primary rounded">
+                        @for (int j = 0; j < Model.Quiz.questions[i].answers?.Count; j++)
+                        {
+
+                            <div class="d-none">
+                                <label asp-for="@Model.Quiz.questions[i].answers[j].id" class="col-form-label"></label>
+                                <input asp-for="@Model.Quiz.questions[i].answers[j].id" type="text" class="form-control bg-body-secondary" />
+                            </div>
+                            <div class="d-none">
+                                <label asp-for="@Model.Quiz.questions[i].answers[j].questionId" class="col-form-label"></label>
+                                <input asp-for="@Model.Quiz.questions[i].answers[j].questionId" type="text" class="form-control bg-body-secondary" />
+                            </div>
+
+                            <label asp-for="@Model.Quiz.questions[i].answers[j].value" class="col-form-label mx-2"></label>
+                            <div class="d-flex">
+                                <div class="w-50 px-2">
+                                    <input asp-for="@Model.Quiz.questions[i].answers[j].value" type="text" class="form-control bg-body-secondary" />
+                                    <span asp-validation-for="@Model.Quiz.questions[i].answers[j].value" class="text-danger"></span>
+                                </div>
+                                <div class="col-auto align-self-start">
+                                    <button asp-route-id="@(j)" asp-route-questId="@(i)" asp-action="DeleteAnswer" asp-controller="ManageQuiz" class="btn btn-danger w-100" type="submit"><i class="bi bi-x-lg"></i></button>
+                                </div>
+                            </div>
+                        }
+                        <div class="m-1 p-2">
+                            <button asp-route-id="@(i)" asp-action="AddAnswer" asp-controller="ManageQuiz" class="btn btn-outline-primary" type="submit">Add answer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        }
+        <div>
+            <button asp-route-id="@(Model.Quiz.questions?.Count)" asp-action="AddQuestion" asp-controller="ManageQuiz" class="btn btn-outline-primary" type="submit">Add question</button>
+        </div>
+    </div>
+
+    <div class="w-100 bg-danger text-bg-light" style="text-align:center;">
+        <p>
+            @text
+        </p>
+    </div>
+    
+    <div class="d-flex mb-3">
+        <button asp-action="SaveQuizChanges" asp-controller="ManageQuiz" class="btn btn-success w-50" type="submit">Save</button>
+        <a asp-action="Index" asp-controller="Main" class="btn btn-warning w-50" type="button">Cancel</a>
+    </div>
+</form>
+
+
+
+@section Scripts{
+    @{
+        
+    }
+}
+

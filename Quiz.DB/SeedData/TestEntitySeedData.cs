@@ -4,12 +4,12 @@ using Quiz.Models.DataModels;
 
 namespace Quiz.DB.SeedData
 {
-    public class TestEntitySeedData : IEntityTypeConfiguration<Test>
+    public class QuizEntitySeedData : IEntityTypeConfiguration<Models.DataModels.Quiz>
     {
-        public void Configure(EntityTypeBuilder<Test> builder)
+        public void Configure(EntityTypeBuilder<Models.DataModels.Quiz> builder)
         {
             builder.HasData(
-                    new Test
+                    new Models.DataModels.Quiz
                     {
                         id = 1,
                         name = "C# Beginers Test",

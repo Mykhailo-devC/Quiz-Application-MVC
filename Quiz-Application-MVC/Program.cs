@@ -1,15 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using Quiz.DB;
-using Quiz.Facade;
+using Quiz.Facade.Facades;
 using Quiz.Logic;
+using Quiz.Services;
+using Quiz.Services.ModelPreparatorService;
+using Quiz.Services.ResultCalculatorService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<QuizDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase(databaseName: "TestDB"));
+builder.Services.AddDbContext<QuizDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<RepositoryFactory>();
 builder.Services.AddScoped<FacadeFactory>();
+builder.Services.AddScoped<IQuizViewModelPreparator, QuizViewModelPreparator>();
+builder.Services.AddScoped<IResultCalculatorService, ResultCalculatorService>();
+builder.Services.AddSingleton<TempDataStorage>();
 
 var app = builder.Build();
 
@@ -25,11 +32,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Main}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();

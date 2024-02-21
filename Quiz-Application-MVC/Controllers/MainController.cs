@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Quiz.DB;
 using Quiz.Facade;
-using Quiz.Logic;
-using Quiz.Models.DataModels;
+using Quiz.Facade.Facades;
 using Quiz.Models.FormattedData;
+using Quiz.Models.ViewModels;
+using Quiz.Services.ModelPreparatorService;
 using Quiz_Application_MVC.Models;
 using System.Diagnostics;
 
@@ -12,12 +12,13 @@ namespace Quiz_Application_MVC.Controllers
     public class MainController : Controller
     {
         private readonly ILogger<MainController> _logger;
-        private readonly IRepositoryFacade<TestFormattedData, Test> _facade;
-
-        public MainController(ILogger<MainController> logger, FacadeFactory factory)
+        private readonly IRepositoryFacade<QuizFormattedData, Quiz.Models.DataModels.Quiz> _facade;
+        private readonly IQuizViewModelPreparator _modelPreparator;
+        public MainController(ILogger<MainController> logger, FacadeFactory factory, IQuizViewModelPreparator modelPreparator)
         {
             _logger = logger;
-            _facade = factory.GetFacade<TestFormattedData, Test>();
+            _facade = factory.GetFacade<QuizFormattedData, Quiz.Models.DataModels.Quiz>();
+            _modelPreparator = modelPreparator;
         }
 
         public async Task<IActionResult> Index()
@@ -29,13 +30,25 @@ namespace Quiz_Application_MVC.Controllers
                 return NotFound(result.ErrorMessage);
             }
 
+            var newQuiz = _modelPreparator.GetNewViewModel();
+            ViewBag.NewQuiz = newQuiz;
+
             return View(result.Data);
 
         }
 
-        public async Task<IActionResult> AddQuiz(Test test)
+        
+        [HttpPost]
+        public async Task<IActionResult> AddQuizModal(ManageQuizViewModel quizViewModel)
         {
-            return View();
+            quizViewModel.Quiz.questions.Add(quizViewModel.Question);
+            quizViewModel.Question = null;
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult ShowAddQuizModal()
+        {
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

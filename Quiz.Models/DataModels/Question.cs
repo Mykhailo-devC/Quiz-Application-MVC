@@ -1,18 +1,21 @@
-﻿using Quiz.Models.DataModels;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Quiz.Models.DataModels
 {
-    public class Question : IDataModel
+    public class Question : BaseDataModel
     {
-        public int id { get; set; }
         [Required]
+        [DisplayName("Question")]
         public string value { get; set; }
         [Required]
+        [DisplayName("Correct Answer")]
         public string correctAnswer { get; set; }
-        public virtual ICollection<Answer> answers { get; set; }
-        public int testId { get; set; }
-        public Test test { get; set; }
+        public virtual List<Answer> answers { get; set; } = new();
+        public int quizId { get; set; }
+        [ValidateNever]
+        public Quiz quiz { get; set; }
         
     }
 }

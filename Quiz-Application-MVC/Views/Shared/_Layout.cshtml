@@ -5,37 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap-utilities.css" rel="stylesheet" />
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex min-vh-100">
     <header class="">
         <nav class="navbar navbar-expand-lg bg-primary border-bottom rounded-bottom border-primary" data-bs-theme="dark">
-            <div class="container d-flex justify-content-start">
+            <div class="container">
                 <a class="navbar-brand" style="font-weight:bold;" asp-area="" asp-controller="Main" asp-action="Index">Quiz App</a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
+                <div class="row navbar-nav">
+                    <div class="nav-item col align-self-start">
                         <a class="nav-link active" asp-controller="Main" asp-action="Index">
                             Quizes
                             <span class="visually-hidden">(current)</span>
                         </a>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="nav-item col align-self-start">
+                        <a class="nav-link active" asp-controller="Main" asp-action="Index">
+                            Login
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
-
     <div class="container bg-light-subtle border border-primary rounded my-3 flex-grow-1">
         <main role="main" class="pt-2">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer fixed-bottom bg-primary text-bg-primary d-flex align-items-center flex-grow-0" data-bs-theme="dark">
-        <div class="container ">
+    <footer class="border-top footer fixed-bottom bg-primary text-bg-primary d-flex align-items-center flex-grow-0" data-bs-theme="dark" style="position:relative; min-height:50px;">
+        <div class="container">
             <div class="row-cols-auto">
                 &copy; 2024 - Quiz App
             </div>

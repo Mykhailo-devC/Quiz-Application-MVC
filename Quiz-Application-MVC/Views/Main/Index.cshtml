@@ -1,7 +1,7 @@
-﻿@model ICollection<TestFormattedData>
-
+﻿@model IList<QuizFormattedData>
 @{
     ViewData["Title"] = "Quiz Page";
+    var list = new List<string> { "Header" };
 }
 
 <div class="container">
@@ -12,31 +12,41 @@
             </h2>
         </div>
         <div class="col text-end d-flex align-items-center justify-content-end">
-            <button type="button" class="btn btn-info" id="add_quiz_btn" data-toggle="modal" data-target="#add-quiz-modal">
+            <a asp-route-mode="Create" asp-controller="ManageQuiz" asp-action="AddQuizView" class="btn btn-info">
                 Add new
-            </button>
+            </a>
         </div>
     </div>
     <div class="row pt-3">
-        @foreach (var item in Model)
+        @for (var i = 0; i < Model.Count; i++)
         {
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
-                    <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">@item.Name</h4>
+                    <div class="card-header row d-flex">
+                        <div class="col align-self-center">
+                            <h4 class="my-0 font-weight-normal">@Model[i].Name</h4>
+                        </div>
+                        <div class="col-auto align-self-end">
+                            <a class="btn btn-outline-primary" asp-route-mode="Update" asp-controller="ManageQuiz" asp-action="EditQuiz" asp-route-id="@Model[i].Id">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a class="btn btn-outline-primary" asp-controller="ManageQuiz" asp-action="DeleteQuiz" asp-route-id="@Model[i].Id">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <p class="font-monospace h4">
-                                Number of questions: @item.QuestionsCount
+                        <div class="row h4 ">
+                            <p class="font-monospace">
+                                Number of questions: @Model[i].QuestionsCount
                             </p>
                         </div>
-                        <div class="d-flex flex-fill">
-                            <div class="p-2 m-0 w-50 h4 d-flex justify-content-center align-items-center" style="font-weight:bold;">
-                                @item.CreationDate
+                        <div class="row">
+                            <div class="col h4 align-self-center mb-0" style="font-weight:bold;">
+                                @Model[i].CreationDate
                             </div>
-                            <div class="p-2 w-50 d-flex justify-content-center">
-                                <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-id="@item.Id">Start</button>
+                            <div class="col-auto">
+                                <a asp-route-id="@Model[i].Id" asp-action="StartQuiz" asp-controller="Quiz" type="button" class="btn btn-lg btn-block btn-outline-primary">Start</a>
                             </div>
                         </div>
                     </div>
@@ -46,26 +56,10 @@
     </div>
 </div>
 
-<div class="modal fade" id="add-quiz-modal" tabindex="-1" role="dialog" aria-labelledby="add-quiz-modal-label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="add-quiz-modal-label">Add custom quiz</h5>
-                <button type="button" class="btn-close close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                @* <form>
-                    <div class="form-group">
-                        <label asp-for="name" class="col-form-label">Quiz Name</label>
-                        <input type="text" asp-for="name" class="form-control">
-                    </div>
-                </form> *@
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+@section Scripts{
+    @{
+          //<partial name="_AddQuizModal" model="new QuizViewModel()"></partial>
+    }
+}
+

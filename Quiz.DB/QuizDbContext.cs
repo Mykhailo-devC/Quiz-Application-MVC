@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Quiz.DB.SeedData;
 using Quiz.Models.DataModels;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Quiz.DB
 {
@@ -10,12 +8,12 @@ namespace Quiz.DB
     {
         public QuizDbContext(DbContextOptions<QuizDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+
         }
 
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<Test> Tests { get; set; }
+        public DbSet<Models.DataModels.Quiz> Quizzes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,23 +31,23 @@ namespace Quiz.DB
             var questionEntityConfig = modelBuilder.Entity<Question>();
 
             questionEntityConfig.HasKey(x => x.id);
-            questionEntityConfig.HasOne(x => x.test)
+            questionEntityConfig.HasOne(x => x.quiz)
                     .WithMany(x => x.questions)
-                    .HasForeignKey(x => x.testId)
+                    .HasForeignKey(x => x.quizId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
             questionEntityConfig.Property(x => x.value).HasMaxLength(100);
             questionEntityConfig.Property(x => x.correctAnswer).HasMaxLength(100);
             questionEntityConfig.Property(x => x.id).ValueGeneratedOnAdd();
 
-            var testEntityConfig = modelBuilder.Entity<Test>();
+            var testEntityConfig = modelBuilder.Entity<Models.DataModels.Quiz>();
 
             testEntityConfig.HasKey(x => x.id);
             testEntityConfig.Property(x => x.creationDate).HasAnnotation("DefaultValue", DateTime.Now);
             testEntityConfig.Property(x => x.name).HasMaxLength(100);
             testEntityConfig.Property(x => x.id).ValueGeneratedOnAdd();
 
-            modelBuilder.ApplyConfiguration(new TestEntitySeedData());
+            modelBuilder.ApplyConfiguration(new QuizEntitySeedData());
             modelBuilder.ApplyConfiguration(new QuestionEntitySeedData());
             modelBuilder.ApplyConfiguration(new AnswerEntitySeedData());
         }
